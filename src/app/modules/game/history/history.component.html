@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Player1Choice</th>
+    <th>Player2Choice</th>
+    <th>Winner</th>
+    <th>Date</th>
+  </tr>
+  <tr *ngFor= "let round of history | slice: 0:5">
+    <td>{{round.player1Choice}}</td>
+    <td>{{round.player2Choice}}</td>
+    <td>{{round.winner}}</td>
+    <td>{{round.timeStamp | date:'short'}}</td>
+  </tr>
+</table>

@@ -1,0 +1,32 @@
+<div class="float-container">
+  <div class="float-child" id="namebox">
+    <div class="name">Player Name:</div>
+  </div>
+  <div class="float-child">
+    <input #name [value]="playerName" (keyup)="updateName(name.value)" type="text" id="name-text" placeholder="your name">
+  </div>
+</div>
+<div class="name" id="choice">Make a choice:</div>
+<div class="buttonsdiv">
+  <div class="choice">
+    <a (click)="updatePlayerChoice('Rock')" class="buttons">Rock</a>
+  </div>
+  <div class="choice">
+    <a (click)="updatePlayerChoice('Paper')" class="buttons">Paper</a>
+  </div>
+  <div class="choice">
+    <a (click)="updatePlayerChoice('Scissors')" class="buttons">Scissors</a>
+  </div>
+  <div class="choice">
+    <a (click)="updatePlayerChoice('Lizard')" class="buttons">Lizard</a>
+  </div>
+  <div class="choice">
+    <a (click)="updatePlayerChoice('Spock')" class="buttons">Spock</a>
+  </div>
+</div>
+<ng-container *ngIf="shouldDisplay">
+  <div class="display">{{playerName}} chose: {{playerChoice}}</div>
+  <div class="display">Computer chose: {{computerChoice}}</div>
+  <div class="display">{{winnerChoice}} beats {{loserChoice}}. {{winner}} wins!</div>
+</ng-container>
+

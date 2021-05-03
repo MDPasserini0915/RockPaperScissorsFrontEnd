@@ -1,0 +1,32 @@
+<div class="container">
+  <header class="header">
+    <ul class="headerElements">
+      <li routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></li>
+      <li routerLinkActive="active-link"><a routerLink="about">About</a></li>
+      <li routerLinkActive="active-link"><a routerLink="blog">Blog</a></li>
+      <li class="dropdown" id="dev">
+        <span>Dev</span>
+          <ul class="dropdown-content">
+            <li class="ddoutline dd1" routerLinkActive="active-link"><a routerLink='dev/front-end'>Front-end</a></li>
+            <li class="ddoutline dd2" routerLinkActive="active-link"><a routerLink='dev/back-end'>Back-end</a></li>
+          </ul>
+      </li>
+      <li class="dropdown" id="dev">
+        <span>Game</span>
+          <ul class="dropdown-content">
+            <li class="ddoutline dd1" routerLinkActive="active-link"><a routerLink='game/play'>Play</a></li>
+            <li class="ddoutline dd2" routerLinkActive="active-link"><a routerLink='game/history'>History</a></li>
+          </ul>
+      </li>
+    </ul>
+
+  </header>
+
+  <main class="main">
+    <router-outlet #mario></router-outlet>
+  </main>
+
+  <footer class="footer">
+    Copyright {{year-1 + " - " + year}}
+  </footer>
+</div>

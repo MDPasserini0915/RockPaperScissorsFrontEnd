@@ -1,0 +1,313 @@
+<div class="markdown">
+  <div class="intro">
+    <h1>Rock Paper Scissors Lizard Spock</h1>
+    <p>Rock Paper Scissors Lizard Spock is a console app game. Once launched, the user is prompted with a menu where he can choose between 3 options.</p>
+  </div>
+  <div class="orignal-version">
+    <h2>Original Version</h2>
+    <p>The original version of the game consisted of Rock, Paper, and Scissors. It was a basic if statement that compared the user input to the computer input and stated the winner.
+
+      The newest version of the console app has added the following changes:</p>
+    <li>Database that holds the round history</li>
+    <li>Expanded the game to include two new choices</li>
+    <ul>
+      <li>Lizard</li>
+      <li>Spock</li>
+    </ul>
+    <li>Improved the displated stats table by dynamically updating spaces</li>
+    <li>Added new descriptions of each outcome to the game</li>
+    <ul>
+      <li>Lizard 'Poisons' Spock</li>
+    </ul>
+    <li>Refactored code to improve performance, maintainability, and readability</li>
+  </div>
+  <div class="Architecture">
+    <h2>Architecture</h2>
+    <p>Initial architecture only included the user and the game.  The new architecture now includes an Azure SQL database.</p>
+    <p>The player will chose an option from the main menu, which is a console game on the computer. The interaction with the database occurs after each round, where it saves the information of that current round to the table, and then when the player is calling it directly.</p>
+    <img alt="About" class="architecture" src="../../../assets/images/Architecture.PNG">
+    <ol>
+      <li>Player (User)</li>
+      <li>Computer (code on laptop)</li>
+      <li>Database that stores the rounds that are played</li>
+    </ol>
+  </div>
+  <div class="Database-Settings">
+    <h2>Database Settings</h2>
+    <table>
+      <tr>
+        <th>Setting/Config</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>"marioserver.database.windows.net"</td>
+      </tr>
+      <tr>
+        <td>UserID</td>
+        <td>"mario"</td>
+      </tr>
+      <tr>
+        <td>Password</td>
+        <td>"MDP82712346!"</td>
+      </tr>
+      <tr>
+        <td>InitialCatalog</td>
+        <td>"marioDatabase"</td>
+      </tr>
+    </table>
+  </div>
+  <div class="Flow">
+    <h2>Flow</h2>
+    <ol>
+      <li>Play Game</li>
+      <ul>
+        <li>The game will ask the user to choose one of the 5 choices, and compare the answer to a random computer answer. After explaining who wins, and why, the game will ask if you want to play again. </li>
+      </ul>
+      <li>Display the stats of the last 3 rounds</li>
+      <ul>
+        <li>The game will display from the database that is updated after each round. It wil display the last 3 rounds into a table that is generated.</li>
+      </ul>
+      <li>Quit</li>
+    </ol>
+    <img alt="About" class="flow" src="../../../assets/images/Flow.PNG">
+  </div>
+  <div class="Code/Methods">
+    <h2>Code/Methods</h2>
+    <h4>Program Class</h4>
+    <p>Main class of the program.</p>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Function</th>
+      </tr>
+      <tr>
+        <td>Main</td>
+        <td>The main method that gets initialized when starting the game. Acts as the starting point to the application.</td>
+      </tr>
+    </table>
+    <h4>SqlClient Class</h4>
+    <p>This class is for all of the database code.</p>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Function</th>
+      </tr>
+      <tr>
+        <td>SaveGameInformation</td>
+        <td>Takes in the choices of each player and the winner, creates the sql connection, and then saves the data by using the SaveData method.</td>
+      </tr>
+      <tr>
+        <td>SaveData</td>
+        <td>Creates the sql string that is used as the command to insert the data.</td>
+      </tr>
+      <tr>
+        <td>Stats</td>
+        <td>It uses a sql command to grab the information of the last 3 items on the table.</td>
+      </tr>
+      <tr>
+        <td>DisplayStats</td>
+        <td>It creates the table that is being displayed when the user chooses to display.</td>
+      </tr>
+      <tr>
+        <td>StringSubtraction</td>
+        <td>Creates the perfect length for the string for the formatting.</td>
+      </tr>
+      <tr>
+        <td>PlayerChoiceTableValue</td>
+        <td>Sets the number of spaces needed for player choices column of the table.</td>
+      </tr>
+      <tr>
+        <td>WinnerTableValue</td>
+        <td>Sets the number of spaces needed for the winner column of the table.</td>
+      </tr>
+    </table>
+    <h4>RpslsService Class</h4>
+    <p>This class is for all of the code that is outside of the Main method and the SqlClient class.</p>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Function</th>
+      </tr>
+      <tr>
+        <td>MenuOptions</td>
+        <td>Decides which menu option the user chooses and what the outcome is.</td>
+      </tr>
+      <tr>
+        <td>ContinueGame</td>
+        <td>Uses the variable to decide whether or not the user wants to continue the game or not.</td>
+      </tr>
+      <tr>
+        <td>CheckPick</td>
+        <td>	Converts the choice of the user into an integer. Then passes that and a random choice from the computer to the WinnerCheck method.</td>
+      </tr>
+      <tr>
+        <td>ComputerPick</td>
+        <td>Random number that is generated for the computer choice of the game.</td>
+      </tr>
+      <tr>
+        <td>WinnerCheck</td>
+        <td>Checks who won and returns the winner.</td>
+      </tr>
+      <tr>
+        <td>CheckOutcomeMessage</td>
+        <td>Checks whether or not the user won the game. There are different outcomes based on if the user won, lost, or tied.</td>
+      </tr>
+      <tr>
+        <td>InitialCatalog</td>
+        <td>"marioDatabase"</td>
+      </tr>
+    </table>
+  </div>
+  <div class="Reflection">
+    <h2>Reflection</h2>
+    <p>Throughout this project, I have learned not only how to code basic programs in C#. But all of the logic behind using different functions, and how to be as efficient as possible while coding. During the process, there were a few code issues that we had to solve. Most of them were basic spelling or common issues that come with learning a new coding language. The biggest issue we had was an infinite loop in the SqlClient class that we are still trying to figure out what is causing it.
+
+      For future projects, I think that I can work a little more before each code sync. Now that I have a basic understanding of C# and how to use methods, I think that I will be able to get more work done in less amount of time.</p>
+    <p>Some specific things I've learned from the yellowbook</p>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Function</th>
+      </tr>
+      <tr>
+        <td>Methods (pg 48)</td>
+        <td>It contains all of the code of the game, methods are used to complete all of my actions.</td>
+      </tr>
+      <tr>
+        <td>Variables (pg 58)</td>
+        <td>They hold information to be used later, it allows the code to be simplified and organized.</td>
+      </tr>
+      <tr>
+        <td>Enumerated Type (pg 79)</td>
+        <td>I use Enum's to hold all of my game choices in it's own class. This allows me to call the choice based on the number it falls under in the list.</td>
+      </tr>
+      <tr>
+        <td>Strings and Concatting Strings</td>
+        <td>Due to this being a game, the strings and text is very important. It needs to be easy to read and look at.</td>
+      </tr>
+      <tr>
+        <td>GUIs</td>
+        <td>Like strings, the overall menu and look of the game needs to be easy to navigate.</td>
+      </tr>
+      <tr>
+        <td>Debugging</td>
+        <td>This process allows me to accuretly find out what is causing the program to fail.</td>
+      </tr>
+      <tr>
+        <td>Classes</td>
+        <td>This allows for more organization of my code. I have a class that includes all of my strings, a class that includes all of my SQL database code, and a class that holds the rest.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- <span>
+  # Rock Paper Scissors Lizard Spock
+
+      Rock Paper Scissors Lizard Spock is a console app game. Once launched, the user is prompted with a menu where he can choose between 3 options.
+
+  ## **Original Version**
+      The original version of the game consisted of Rock, Paper, and Scissors. It was a basic if statement that compared the user input to the computer input and stated the winner.
+
+      The newest version of the console app has added the following changes:
+  * Database that holds the round history
+  * Expanded the game to include two new choices
+    * Lizard
+    * Spock
+  * Improved the displayed stats table by dynamically updating spaces
+  * Added new descriptions of each outcome to the game.
+    * Lizard 'Poisons' Spock
+  * Refactored code to improve performance, maintainability, and readability
+
+  ## **Architecture**
+
+      Initial architecture only included the user and the game.  The new architecture now includes an Azure SQL database.
+
+  The player will chose an option from the main menu, which is a console game on the computer. The interaction with the database occurs after each round, where it saves the information of that current round to the table, and then when the player is calling it directly.
+
+  ![RPSLS Architecture](Architecture.PNG)
+
+  1. Player (User)
+  2. Computer (code on laptop)
+  3. Database that stores the rounds that are played
+
+  ## **Database Settings**
+
+    | Setting/Config | Value        |
+    | :-------------| :---------- |
+    | Database | "marioserver.database.windows.net"   |
+    | UserID   | "mario" |
+    | Password   | "MDP82712346!" |
+    | InitialCatalog | "marioDatabase"|
+
+  ## **Flow**
+
+  1. Play Game
+    * The game will ask the user to choose one of the 5 choices, and compare the answer to a random computer answer. After explaining who wins, and why, the game will ask if you want to play again.
+  2. Display the stats of the last 3 rounds
+    * The game will display from the database that is updated after each round. It wil display the last 3 rounds into a table that is generated.
+  3. Quit
+
+  ![RPSLS Flow](Flow.PNG)
+
+  ## **Code/Methods**
+
+  ### **Program Class**
+
+      Main class of the program.
+    | Method | Function   |
+    | :-------------| :---------- |
+    | Main | The main method that gets initialized when starting the game. Acts as the starting point to the application.   |
+
+  ### **SqlClient Class**
+
+      This class is for all of the database code.
+    | Method | Function   |
+    | :-------------| :---------- |
+    | SaveGameInformation   | Takes in the choices of each player and the winner, creates the sql connection, and then saves the data by using the SaveData method. |
+    | SaveData   | Creates the sql string that is used as the command to insert the data. |
+    | Stats | It uses a sql command to grab the information of the last 3 items on the table. |
+    | DisplayStats | It creates the table that is being displayed when the user chooses to display |
+    | StringSubtraction | Creates the perfect length for the string for table formatting.  |
+    | PlayerChoiceTableValue   | Sets the number of spaces needed for player choices column of the table. |
+    | WinnerTableValue   | Sets the number of spaces needed for the winner column of the table. |
+
+  ### **RpslsService Class**
+
+      This class is for all of the code that is outside of the Main method and the SqlClient class.
+    | Method | Function   |
+    | :-------------| :---------- |
+    | Menu | Holds the strings for all of the menu options. |
+    | MenuOptions | Decides which menu option the user chooses and what the outcome is. |
+    | ContinueGame | Uses the variable to decide whether or not the user wants to continue the game or not. |
+    | CheckPick | Converts the choice of the user into an integer. Then passes that and a random choice from the computer to the WinnerCheck method. |
+    | ComputerPick | Random number that is generated for the computer choice of the game. |
+    | WinnerCheck | Checks who won and returns the winner |
+    | CheckOutcomeMessage | Checks whether or not the user won the game. There are different outcomes based on if the user won, lost, or tied. |
+    | InitialCatalog | "marioDatabase"|
+
+  ## **Reflection**
+
+    Throughout this project, I have learned not only how to code basic programs in C#. But all of the logic behind using different functions, and how to be as efficient as possible while coding. During the process, there were a few code issues that we had to solve. Most of them were basic spelling or common issues that come with learning a new coding language. The biggest issue we had was an infinite loop in the SqlClient class that we are still trying to figure out what is causing it.
+
+    For future projects, I think that I can work a little more before each code sync. Now that I have a basic understanding of C# and how to use methods, I think that I will be able to get more work done in less amount of time.
+
+
+      Some specific things I've learned from the yellowbook
+    | Method | Function   |
+    | :-------------| :---------- |
+    | Methods pg 48. | It contains all of the code of the game, methods are used to complete all of my actions. |
+    | Variables  pg 58. | They hold information to be used later, it allows the code to be simplified and organized. |
+    | Enumerated Type pgpg 79. | I use Enum's to hold all of my game choices in it's own class. This allows me to call the choice based on the number it falls under in the list. |
+    | Strings and Concatting Strings | Due to this being a game, the strings and text is very important. It needs to be easy to read and look at. |
+    | GUIs | Like strings, the overall menu and look of the game needs to be easy to navigate. |
+    | Debugging | This process allows me to accuretly find out what is causing the program to fail. |
+    | Classes | This allows for more organization of my code. I have a class that includes all of my strings, a class that includes all of my SQL database code, and a class that holds the rest. |
+</span> -->
